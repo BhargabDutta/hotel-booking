@@ -29,6 +29,11 @@ body {
   gap: 20px;
 }
 
+.error {
+  color: #c62828;
+  font-size: 13px;
+}
+
 .form-group {
   display: flex;
   flex-direction: column;

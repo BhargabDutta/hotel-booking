@@ -1,68 +1,77 @@
 import { useState } from "react";
 
-function SelectDates() {
+function getToday() {
+  const date = new Date();
+
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(
+    2,
+    "0"
+  )}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
+function SelectDates({ setDates }) {
   const [checkIn, setCheckIn] = useState("");
   const [checkOut, setCheckOut] = useState("");
   const [error, setError] = useState("");
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = getToday();
 
-  function handleCheckInChange(event) {
+  function handleCheckIn(event) {
     const value = event.target.value;
 
     setCheckIn(value);
-    setError("");
+    setDates((prev) => ({ ...prev, checkIn: value }));
 
     if (value < today) {
-      setError("Check-in date cannot be in the past.");
-    }
-
-    if (checkOut && checkOut <= value) {
-      setError("Check-out date must be after check-in.");
+      setError("Check-in cannot be in the past.");
+    } else if (checkOut && checkOut <= value) {
+      setError("Check-out must be after check-in.");
+    } else {
+      setError("");
     }
   }
 
-  function handleCheckOutChange(event) {
+  function handleCheckOut(event) {
     const value = event.target.value;
 
     setCheckOut(value);
-    setError("");
+    setDates((prev) => ({ ...prev, checkOut: value }));
 
     if (checkIn && value <= checkIn) {
-      setError("Check-out date must be after check-in.");
+      setError("Check-out must be after check-in.");
+    } else {
+      setError("");
     }
   }
 
   return (
-    <div>
-      <section className="booking-form">
-        <div className="date-fields">
-          <div className="form-group">
-            <label htmlFor="check-in">Check-in</label>
-            <input
-              id="check-in"
-              type="date"
-              min={today}
-              value={checkIn}
-              onChange={handleCheckInChange}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="check-out">Check-out</label>
-            <input
-              id="check-out"
-              type="date"
-              min={checkIn || today}
-              value={checkOut}
-              onChange={handleCheckOutChange}
-            />
-          </div>
+    <section className="booking-form">
+      <div className="date-fields">
+        <div className="form-group">
+          <label htmlFor="check-in">Check-in</label>
+          <input
+            id="check-in"
+            type="date"
+            min={today}
+            value={checkIn}
+            onChange={handleCheckIn}
+          />
         </div>
 
-        {error && <p className="error">{error}</p>}
-      </section>
-    </div>
+        <div className="form-group">
+          <label htmlFor="check-out">Check-out</label>
+          <input
+            id="check-out"
+            type="date"
+            min={checkIn || today}
+            value={checkOut}
+            onChange={handleCheckOut}
+          />
+        </div>
+      </div>
+
+      {error && <p className="error">{error}</p>}
+    </section>
   );
 }
 

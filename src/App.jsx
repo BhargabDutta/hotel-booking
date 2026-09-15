@@ -1,14 +1,22 @@
 import { useState } from "react";
 import RoomDisplay from "./components/RoomDisplay";
 import SelectDates from "./components/SelectDates";
+
 function App() {
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [selectedRooms, setSelectedRooms] = useState([]);
+  const [dates, setDates] = useState({
+    checkIn: "",
+    checkOut: "",
+  });
+
   return (
     <div>
-      <SelectDates />
+      <SelectDates setDates={setDates} />
+
       <RoomDisplay
-        selectedRoom={selectedRoom}
-        setSelectedRoom={setSelectedRoom}
+        selectedRooms={selectedRooms}
+        setSelectedRooms={setSelectedRooms}
+        dates={dates}
       />
     </div>
   );
