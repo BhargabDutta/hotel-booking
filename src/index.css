@@ -7,14 +7,13 @@ body {
   color: #17212b;
 }
 
-.container { width: 90%; max-width: 1000px; margin: 40px auto; }
+/* .container { width: 90%; max-width: 1000px; margin: 40px auto; } */
 
 .booking-form, .room-card {
   background: #fff;
   padding: 20px;
   margin-bottom: 20px;
   border: 1px solid #ddd;
-  border-radius: 8px;
 }
 
 .date-fields { display: flex; gap: 20px; }

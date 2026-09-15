@@ -88,12 +88,6 @@ function RoomDisplay({
     setSelectedRooms([]);
   }
 
-  const totalPrice =
-    selectedRooms.reduce(
-      (total, room) => total + room.pricePerNight,
-      0
-    ) * nights;
-
   return (
     <main className="container">
       <section className="room-card">
@@ -172,7 +166,7 @@ function RoomDisplay({
           {selectedRooms.length > 0 && (
             <div className="selected-room-info">
               <h3>Booking Summary</h3>
-
+                <div style={{display: "flex", flexDirection: "row", gap: "40px"}}>
               {selectedRooms.map((room) => (
                 <div key={room.roomCode}>
                   <p>
@@ -193,14 +187,7 @@ function RoomDisplay({
                   )}
                 </div>
               ))}
-
-              {nights > 0 && (
-                <p>
-                  <strong>
-                    Total: ₹{totalPrice.toLocaleString("en-IN")}
-                  </strong>
-                </p>
-              )}
+              </div>
 
               <button
                 className="select-btn"

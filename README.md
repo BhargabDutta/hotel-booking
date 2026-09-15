@@ -1,7 +1,7 @@
 # How to Run
-npm install
-npm run dev
-Open the local URL provided by Vite in your browser.
+- npm install
+- npm run dev
+- Open the local URL provided by Vite in your browser.
 
 # Stack
 - React
