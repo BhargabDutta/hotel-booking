@@ -4,6 +4,7 @@ import SelectDates from "./components/SelectDates";
 
 function App() {
   const [selectedRooms, setSelectedRooms] = useState([]);
+  const [bookings, setBookings] = useState([]);
   const [dates, setDates] = useState({
     checkIn: "",
     checkOut: "",
@@ -16,6 +17,8 @@ function App() {
       <RoomDisplay
         selectedRooms={selectedRooms}
         setSelectedRooms={setSelectedRooms}
+        bookings={bookings}
+        setBookings={setBookings}
         dates={dates}
       />
     </div>
