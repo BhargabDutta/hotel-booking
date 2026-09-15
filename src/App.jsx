@@ -1,11 +1,15 @@
-
+import { useState } from "react";
 import RoomDisplay from "./components/RoomDisplay";
 import SelectDates from "./components/SelectDates";
 function App() {
+  const [selectedRoom, setSelectedRoom] = useState(null);
   return (
     <div>
       <SelectDates />
-      <RoomDisplay />
+      <RoomDisplay
+        selectedRoom={selectedRoom}
+        setSelectedRoom={setSelectedRoom}
+      />
     </div>
   );
 }

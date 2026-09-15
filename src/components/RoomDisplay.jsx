@@ -31,55 +31,84 @@ const rooms = [
     maxGuests: 4,
   },
 ];
-function RoomDisplay() {
+function RoomDisplay({ selectedRoom, setSelectedRoom }) {
   return (
     <div>
-              <main className="container">
-        <section className="room-card">
-          <div className="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Room Code</th>
-                  <th>Room Type</th>
-                  <th>Price / Night</th>
-                  <th>Max Guests</th>
-                </tr>
-              </thead>
+        <main className="container">
+            <section className="room-card">
+            <div className="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                        <th>Room Code</th>
+                        <th>Room Type</th>
+                        <th>Price / Night</th>
+                        <th>Max Guests</th>
+                        </tr>
+                    </thead>
 
-              <tbody>
-                {rooms.map((room) => (
-                  <tr key={room.roomCode}>
-                    <td>
-                      <span className="room-code">{room.roomCode}</span>
-                    </td>
+                    <tbody>
+                    {rooms.map((room) => {
+                        const isSelected = selectedRoom?.roomCode === room.roomCode;
 
-                    <td>
-                      <div className="room-type">
-                        <span className="room-dot"></span>
-                        {room.roomType}
-                      </div>
-                    </td>
+                        return (
+                        <tr
+                            key={room.roomCode}
+                            className={isSelected ? "selected-row" : ""}
+                        >
+                            <td>
+                            <span className="room-code">{room.roomCode}</span>
+                            </td>
 
-                    <td>
-                      <span className="price">
-                        ₹{room.pricePerNight.toLocaleString("en-IN")}
-                      </span>
-                      <span className="price-label"> / night</span>
-                    </td>
+                            <td>
+                            <div className="room-type">
+                                {room.roomType}
+                            </div>
+                            </td>
 
-                    <td>
-                      <span className="guest-badge">
-                        {room.maxGuests} guests
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </main>
+                            <td>
+                            <span className="price">
+                                ₹{room.pricePerNight.toLocaleString("en-IN")}
+                            </span>
+                            <span className="price-label"> / night</span>
+                            </td>
+
+                            <td>
+                            <span className="guest-badge">
+                                {room.maxGuests} guests
+                            </span>
+                            </td>
+
+                            <td>
+                            <button
+                                className={`select-btn ${isSelected ? "selected" : ""}`}
+                                onClick={() => setSelectedRoom(room)}
+                            >
+                                {isSelected ? "Selected" : "Select Room"}
+                            </button>
+                            </td>
+                        </tr>
+                        );
+                    })}
+                    </tbody>
+                </table>
+
+
+                {selectedRoom && (
+  <div className="selected-room-info">
+    <h3>Selected Room</h3>
+    <p>
+      <strong>{selectedRoom.roomCode}</strong> — {selectedRoom.roomType}
+    </p>
+    <p>
+      ₹{selectedRoom.pricePerNight.toLocaleString("en-IN")} / night • Max{" "}
+      {selectedRoom.maxGuests} guests
+    </p>
+  </div>
+)}
+            </div>
+            </section>
+        </main>
     </div>
   )
 }
